@@ -59,7 +59,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <ListView prefHeight="403.0" prefWidth="200.0">
+                  <ListView fx:id="movieListView" prefHeight="403.0" prefWidth="200.0">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" />
                      </VBox.margin>

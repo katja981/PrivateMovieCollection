@@ -4,19 +4,19 @@ import java.time.LocalDate;
 
 public class Movie {
     private int id;
-    private String moviename; // Name of the movie.
-    private String genre; // Movie genre.
-    private float rating; // Rating of the movie.
-    private String filelink; // Path to the movie in the resource folder.
+    private String movieName; // Name of the movie.
+    private String movieCategory; // Movie category.
+    private float imdbRating; // IMDB rating of the movie.
+    private String fileLink; // Path to the movie in the resource folder.
     private LocalDate lastViewDate; // Date of the last view.
 
     // Constructor for the Movie class
-    public Movie(int id, String name, String genre, float rating, String filelink) {
+    public Movie(int id, String name, float imdbRating, String movieCategory, String fileLink) {
         this.id = id;
-        this.moviename = name;
-        this.genre = genre;
-        setRating(rating); // Validate and set the rating
-        this.filelink = filelink;
+        this.movieName = name;
+        setImdbRating(imdbRating); // Validate and set the IMDB rating
+        this.movieCategory = movieCategory;
+        this.fileLink = fileLink;
         this.lastViewDate = LocalDate.now();
     }
 
@@ -25,32 +25,32 @@ public class Movie {
         return id;
     }
 
-    public String getMoviename() {
-        return moviename;
+    public String getMovieName() {
+        return movieName;
     }
 
-    public void setName(String moviename) {
-        this.moviename = moviename;
+    public void setMovieName(String movieName) {
+        this.movieName = this.movieName;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getMovieCategory() {
+        return movieCategory;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setMovieCategory(String category) {
+        this.movieCategory = movieCategory;
     }
 
-    public float getRating() {
-        return rating;
+    public float getImdbRating() {
+        return imdbRating;
     }
 
-    public void setRating(float rating) {
-        // Validate rating (must be between 0.0 and 5.0)
-        if (rating >= 0.0 && rating <= 5.0) {
-            this.rating = rating;
+    public void setImdbRating(float imdbRating) {
+        // Validate IMDB rating (must be between 0.0 and 10.0)
+        if (imdbRating >= 0.0 && imdbRating <= 10.0) {
+            this.imdbRating = imdbRating;
         } else {
-            throw new IllegalArgumentException("Rating must be between 0.0 and 5.0.");
+            throw new IllegalArgumentException("IMDB rating must be between 0.0 and 10.0.");
         }
     }
 
@@ -62,14 +62,14 @@ public class Movie {
         this.lastViewDate = lastViewDate;
     }
 
-    public String getFilelink() {
-        return filelink;
+    public String getFileLink() {
+        return fileLink;
     }
 
-    public void setFilelink(String filelink) {
+    public void setFileLink(String fileLink) {
         // Check if the file ends with .mp4 or .mpeg4
-        if (filelink.endsWith(".mp4") || filelink.endsWith(".mpeg4")) {
-            this.filelink = filelink;
+        if (fileLink.endsWith(".mp4") || fileLink.endsWith(".mpeg4")) {
+            this.fileLink = fileLink;
         } else {
             throw new IllegalArgumentException("File must be in .mp4 or .mpeg4 format.");
         }
@@ -77,9 +77,17 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie: " + moviename +
-                ", Genre: " + genre +
-                ", Rating: " + rating +
+        return "Movie: " + movieName +
+                ", Genre: " + movieCategory +
+                ", Rating: " + imdbRating +
                 ", Last viewed: " + lastViewDate;
+    }
+
+    public double getPersonalRating() {
+        return 0;
+    }
+
+    public void setId(int anInt) {
+        id = anInt;
     }
 }
