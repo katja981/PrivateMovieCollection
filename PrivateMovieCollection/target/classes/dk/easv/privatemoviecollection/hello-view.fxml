@@ -47,7 +47,7 @@
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField opacity="0.5" text="Search...">
+                        <TextField promptText="Search...">
                            <HBox.margin>
                               <Insets left="45.0" />
                            </HBox.margin>
