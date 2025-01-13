@@ -1,91 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.privatemoviecollection.HelloController">
-   <center>
-      <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <items>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+<StackPane fx:id="rootPane" prefHeight="440.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <SplitPane dividerPositions="0.5" prefHeight="436.0" prefWidth="600.0">
+               <items>
+                  <AnchorPane prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <Label layoutX="12.0" layoutY="14.0" text="Category" />
+                        <ListView fx:id="categoryListView" layoutX="10.0" layoutY="41.0" prefHeight="353.0" prefWidth="281.0" />
+                        <Button fx:id="btnAddCategory" layoutX="16.0" layoutY="398.0" mnemonicParsing="false" text="Add category" />
+                        <Button fx:id="btnDeleteCategory" layoutX="115.0" layoutY="398.0" mnemonicParsing="false" text="Delete category" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Movies" />
+                        <ListView fx:id="movieListView" layoutX="6.0" layoutY="41.0" prefHeight="353.0" prefWidth="281.0" />
+                        <Button fx:id="btnAddMovie" layoutX="15.0" layoutY="398.0" mnemonicParsing="false" text="Add movie" />
+                        <Button fx:id="btnDeleteMovie" layoutX="93.0" layoutY="398.0" mnemonicParsing="false" text="Delete movie" />
+                        <Button fx:id="btnEditMovie" layoutX="186.0" layoutY="398.0" mnemonicParsing="false" text="Edit movie" />
+                        <Button fx:id="btnSearch" layoutX="230.0" layoutY="10.0" mnemonicParsing="false" text="Search" />
+                        <TextField fx:id="txtSearch" layoutX="73.0" layoutY="10.0" promptText="Search..." />
+                     </children>
+                  </AnchorPane>
+               </items>
+            </SplitPane>
+         </children>
+      </AnchorPane>
+      <VBox fx:id="popupAddMovie" maxHeight="274.0" maxWidth="440.0" prefHeight="274.0" prefWidth="440.0" visible="false">
+         <children>
+            <AnchorPane maxHeight="278.0" maxWidth="440.0" prefHeight="278.0" prefWidth="440.0">
                <children>
-                  <Label text="Category">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" top="5.0" />
-                     </VBox.margin>
+                  <Label layoutX="169.0" layoutY="14.0" text="Add a movie">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
                   </Label>
-                  <ListView fx:id="categoryListView" prefHeight="403.0" prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" />
-                     </VBox.margin>
-                  </ListView>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button mnemonicParsing="false" text="Add category">
-                           <HBox.margin>
-                              <Insets left="5.0" right="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" text="Delete category" />
-                     </children>
-                  </HBox>
+                  <TextField fx:id="txtMovieName" layoutX="195.0" layoutY="68.0" promptText="Movie name..." />
+                  <Label layoutX="98.0" layoutY="72.0" text="Movie name:" />
+                  <Label layoutX="100.0" layoutY="137.0" text="Category:" />
+                  <Button fx:id="btnPUCancelMovie" layoutX="120.0" layoutY="234.0" mnemonicParsing="false" text="Cancel" />
+                  <Button fx:id="btnPUAddMovie" layoutX="244.0" layoutY="234.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Add" />
+                  <TextField fx:id="txtRating" layoutX="195.0" layoutY="98.0" prefHeight="25.0" prefWidth="56.0" promptText="Rating.." />
+                  <Label layoutX="101.0" layoutY="102.0" text="Rating:" />
+                  <Label layoutX="101.0" layoutY="171.0" text="Link:" />
+                  <TextField fx:id="txtFilePath" layoutX="132.0" layoutY="167.0" />
+                  <Button fx:id="btnChoose" layoutX="288.0" layoutY="167.0" mnemonicParsing="false" text="Choose" />
                </children>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            </AnchorPane>
+         </children>
+      </VBox>
+      <VBox fx:id="popupDeleteMovie" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="129.0" prefWidth="349.0" visible="false">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label text="Movies">
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="5.0" top="5.0" />
-                           </HBox.margin>
-                        </Label>
-                        <TextField opacity="0.5" text="Search...">
-                           <HBox.margin>
-                              <Insets left="45.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <Button mnemonicParsing="false" text="Search">
-                           <HBox.margin>
-                              <Insets left="4.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <ListView fx:id="movieListView" prefHeight="403.0" prefWidth="200.0">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" />
-                     </VBox.margin>
-                  </ListView>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button mnemonicParsing="false" text="Add movie">
-                           <HBox.margin>
-                              <Insets left="5.0" right="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" text="Delete movie">
-                           <HBox.margin>
-                              <Insets left="5.0" right="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" text="Edit movie">
-                           <HBox.margin>
-                              <Insets left="5.0" right="5.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
+                  <Label layoutX="129.0" layoutY="14.0" text="Delete a movie">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="45.0" layoutY="41.0" prefHeight="17.0" prefWidth="260.0" text="Are you sure you want to delete selected movie?" />
+                  <Button fx:id="btnPUMovieDelete" layoutX="195.0" layoutY="80.0" mnemonicParsing="false" text="Delete" />
+                  <Button fx:id="btnCancelDelete" layoutX="103.0" layoutY="80.0" mnemonicParsing="false" text="Cancel" />
                </children>
-            </VBox>
-         </items>
-      </SplitPane>
-   </center>
-</BorderPane>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <VBox fx:id="popupEdit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="274.0" prefWidth="440.0" visible="false">
+         <children>
+            <AnchorPane prefHeight="286.0" prefWidth="347.0">
+               <children>
+                  <Label layoutX="185.0" layoutY="25.0" text="Edit movie">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtSelectedMovieLink" layoutX="111.0" layoutY="68.0" />
+                  <Button fx:id="btnEditMovieLink" layoutX="279.0" layoutY="68.0" mnemonicParsing="false" text="Choose" />
+                  <TextField fx:id="txtSelectedMovieName" layoutX="111.0" layoutY="104.0" promptText="Title.." />
+                  <TextField fx:id="txtSelectedRating" layoutX="111.0" layoutY="173.0" prefHeight="25.0" prefWidth="51.0" />
+                  <TextField fx:id="txtUserRating" layoutX="281.0" layoutY="173.0" prefHeight="25.0" prefWidth="51.0" />
+                  <Label layoutX="210.0" layoutY="177.0" text="User rating:" />
+                  <Label layoutX="111.0" layoutY="144.0" text="CATEGORY" />
+                  <Button fx:id="btnPUSaveEdit" layoutX="253.0" layoutY="221.0" mnemonicParsing="false" text="Save" />
+                  <Button fx:id="btnCancelEdit" layoutX="144.0" layoutY="221.0" mnemonicParsing="false" text="Cancel" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <VBox fx:id="popupAddCategory" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="129.0" prefWidth="349.0" visible="false">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnSaveCategory" layoutX="199.0" layoutY="90.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Save" />
+                  <Button fx:id="btnCancelCategory" layoutX="108.0" layoutY="90.0" mnemonicParsing="false" text="Cancel" />
+                  <Label layoutX="124.0" layoutY="14.0" text="Add a category">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtCategoryName" layoutX="150.0" layoutY="45.0" promptText="Name..." />
+                  <Label layoutX="57.0" layoutY="49.0" text="Category name:" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <VBox fx:id="popupDeleteCategory" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="129.0" prefWidth="349.0" visible="false">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="123.0" layoutY="14.0" text="Delete category">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="41.0" text="Are you sure you want to delete selected category?" />
+                  <Button fx:id="btnPUDeleteCategory" layoutX="201.0" layoutY="78.0" mnemonicParsing="false" text="Delete" />
+                  <Button fx:id="btnCancelDeleteCategory" layoutX="97.0" layoutY="78.0" mnemonicParsing="false" text="Cancel" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</StackPane>
