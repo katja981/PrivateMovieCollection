@@ -47,12 +47,12 @@
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField promptText="Search...">
+                        <TextField fx:id="searchTextField" promptText="Search...">
                            <HBox.margin>
                               <Insets left="45.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button mnemonicParsing="false" text="🔍">
+                        <Button fx:id="searchButton" mnemonicParsing="false" text="🔍">
                            <HBox.margin>
                               <Insets left="4.0" />
                            </HBox.margin>

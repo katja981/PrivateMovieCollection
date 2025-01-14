@@ -8,10 +8,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HelloController {
+
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private Button searchButton;
 
     @FXML
     private ListView<Movie> movieListView;
@@ -27,6 +36,14 @@ public class HelloController {
     public void initialize() {
         loadMovies();
         loadCategories();
+
+        searchButton.setOnAction(event -> performSearch());
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                movieListView.setItems(movieObservableList);
+            }
+        });
     }
 
     private void loadMovies() {
@@ -57,5 +74,19 @@ public class HelloController {
 
         categoryObservableList = FXCollections.observableList(categories);
         categoryListView.setItems(categoryObservableList);
+    }
+
+    private void performSearch() {
+        String searchTerm = searchField.getText().toLowerCase();
+
+        List<Movie> filteredMovies = movieObservableList.stream()
+                .filter(movie -> movie.getTitle().toLowerCase().contains(searchTerm))
+                .collect(Collectors.toList());
+
+        movieListView.setItems(FXCollections.observableList(filteredMovies));
+
+        if (filteredMovies.isEmpty()) {
+            movieListView.setPlaceholder(new javafx.scene.control.Label("No results found."));
+        }
     }
 }
