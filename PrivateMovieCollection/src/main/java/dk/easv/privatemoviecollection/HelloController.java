@@ -50,34 +50,20 @@ public class HelloController {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.isEmpty()) {
                 loadMovies();
-                //movieListView.setItems(movieObservableList);
             }
         });
     }
 
     private void loadMovies() {
 
-        if (movieManager == null) {
-            throw new IllegalStateException("MovieManager is not initialized");
+        List<Movie> movies;
+
+        try {
+            movies = movieManager.getAll();
+        } catch (Exception e) {
+        e.printStackTrace();
+        movies = List.of();
         }
-
-        List<Movie> movies = movieManager.getAll();
-
-        if (movies != null) {
-            movieObservableList = FXCollections.observableList(movies);
-            movieListView.setItems(movieObservableList);
-
-            movieSearch = new MovieSearch(movies);
-        }
-        //MovieDAO movieDAO = new MovieDAO();
-        //List<Movie> movies;
-
-        //try {
-        //    movies = movieDAO.getAllMovies();
-        //} catch (Exception e) {
-        //    e.printStackTrace();
-        //    movies = List.of();
-        //}
 
         movieObservableList = FXCollections.observableList(movies);
         movieListView.setItems(movieObservableList);
@@ -99,16 +85,27 @@ public class HelloController {
     }
 
     private void performSearch() {
-        String searchTerm = searchField.getText().toLowerCase();
+        String searchTerm = searchField.getText();
 
-        if (movieSearch != null) {
-            List<Movie> filteredMovies = movieSearch.searchMovies(searchTerm);
-
-            movieListView.setItems(FXCollections.observableList(filteredMovies));
-
-            if (filteredMovies.isEmpty()) {
-                movieListView.setPlaceholder(new javafx.scene.control.Label("No results found."));
-            }
+        if (searchTerm == null || searchTerm.isBlank()) {
+            loadMovies(); // Reload all movies if the search field is empty
+            return;
         }
+
+        // Search movies using MovieManager or MovieDAO
+        MovieDAO movieDAO = new MovieDAO();
+        List<Movie> filteredMovies;
+
+        try {
+            filteredMovies = movieDAO.getAllMovies().stream()
+                    .filter(movie -> movie.getMovieName().toLowerCase().contains(searchTerm.toLowerCase()))
+                    .toList(); // Keep the filtered results in scope
+        } catch (Exception e) {
+            e.printStackTrace();
+            filteredMovies = List.of(); // Empty list if an error occurs
+        }
+
+        movieObservableList = FXCollections.observableList(filteredMovies);
+        movieListView.setItems(movieObservableList);
     }
 }
