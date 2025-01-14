@@ -13,8 +13,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HelloController {
 
@@ -65,6 +66,8 @@ public class HelloController {
         movies = List.of();
         }
 
+        Collections.sort(movies, Comparator.comparing(Movie::getMovieName));
+
         movieObservableList = FXCollections.observableList(movies);
         movieListView.setItems(movieObservableList);
     }
@@ -79,6 +82,8 @@ public class HelloController {
             e.printStackTrace();
             categories = List.of();
         }
+
+        Collections.sort(categories, Comparator.comparing(Category::getCategoryName));
 
         categoryObservableList = FXCollections.observableList(categories);
         categoryListView.setItems(categoryObservableList);
