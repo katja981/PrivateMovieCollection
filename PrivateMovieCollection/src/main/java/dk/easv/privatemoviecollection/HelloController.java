@@ -2,6 +2,8 @@ package dk.easv.privatemoviecollection;
 
 import BE.Category;
 import BE.Movie;
+import BLL.MovieManager;
+import BLL.MovieSearch;
 import DAL.CategoryDAO;
 import DAL.MovieDAO;
 import javafx.collections.FXCollections;
@@ -32,8 +34,14 @@ public class HelloController {
 
     private ObservableList<Category> categoryObservableList;
 
+    private MovieManager movieManager; // Manages all movie-related operations
+    private MovieSearch movieSearch;
+
     @FXML
     public void initialize() {
+
+        movieManager = new MovieManager();
+
         loadMovies();
         loadCategories();
 
@@ -41,21 +49,35 @@ public class HelloController {
 
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.isEmpty()) {
-                movieListView.setItems(movieObservableList);
+                loadMovies();
+                //movieListView.setItems(movieObservableList);
             }
         });
     }
 
     private void loadMovies() {
-        MovieDAO movieDAO = new MovieDAO();
-        List<Movie> movies;
 
-        try {
-            movies = movieDAO.getAllMovies();
-        } catch (Exception e) {
-            e.printStackTrace();
-            movies = List.of();
+        if (movieManager == null) {
+            throw new IllegalStateException("MovieManager is not initialized");
         }
+
+        List<Movie> movies = movieManager.getAll();
+
+        if (movies != null) {
+            movieObservableList = FXCollections.observableList(movies);
+            movieListView.setItems(movieObservableList);
+
+            movieSearch = new MovieSearch(movies);
+        }
+        //MovieDAO movieDAO = new MovieDAO();
+        //List<Movie> movies;
+
+        //try {
+        //    movies = movieDAO.getAllMovies();
+        //} catch (Exception e) {
+        //    e.printStackTrace();
+        //    movies = List.of();
+        //}
 
         movieObservableList = FXCollections.observableList(movies);
         movieListView.setItems(movieObservableList);
@@ -79,14 +101,14 @@ public class HelloController {
     private void performSearch() {
         String searchTerm = searchField.getText().toLowerCase();
 
-        List<Movie> filteredMovies = movieObservableList.stream()
-                .filter(movie -> movie.getTitle().toLowerCase().contains(searchTerm))
-                .collect(Collectors.toList());
+        if (movieSearch != null) {
+            List<Movie> filteredMovies = movieSearch.searchMovies(searchTerm);
 
-        movieListView.setItems(FXCollections.observableList(filteredMovies));
+            movieListView.setItems(FXCollections.observableList(filteredMovies));
 
-        if (filteredMovies.isEmpty()) {
-            movieListView.setPlaceholder(new javafx.scene.control.Label("No results found."));
+            if (filteredMovies.isEmpty()) {
+                movieListView.setPlaceholder(new javafx.scene.control.Label("No results found."));
+            }
         }
     }
 }
