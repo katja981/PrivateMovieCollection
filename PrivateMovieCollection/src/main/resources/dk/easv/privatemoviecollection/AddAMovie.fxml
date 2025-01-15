@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<Pane fx:controller="dk.easv.privatemoviecollection.AddMovieController" prefHeight="274.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:controller="GUI.Controllers.AddMovieController" prefHeight="274.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox fx:id="popupAddMovie" layoutX="-3.0" layoutY="-2.0" prefHeight="274.0" prefWidth="440.0">
          <children>

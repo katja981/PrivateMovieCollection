@@ -1,4 +1,4 @@
-package dk.easv.privatemoviecollection;
+package GUI.Controllers;
 
 import BE.Category;
 import BE.Movie;
@@ -72,7 +72,7 @@ public class HelloController {
     void onAddMovieCLicked(ActionEvent event) {
         try {
             // Loads the AddAMovie FXML File
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddAMovie.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dk/easv/privatemoviecollection/AddAMovie.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
 
             //Creates a new stage for the "Add Movie" dialog

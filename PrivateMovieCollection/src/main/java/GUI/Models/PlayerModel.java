@@ -1,4 +1,4 @@
-package dk.easv.privatemoviecollection;
+package GUI.Models;
 
 import BE.Category;
 import BE.Movie;
@@ -6,8 +6,6 @@ import BLL.CategoryManager;
 import BLL.MovieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.Map;
 
 public class PlayerModel {
     private final MovieManager movieManager;

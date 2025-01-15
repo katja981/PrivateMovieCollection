@@ -1,4 +1,4 @@
-package dk.easv.privatemoviecollection;
+package GUI.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
