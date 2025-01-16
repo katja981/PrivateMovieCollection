@@ -20,13 +20,11 @@ public class MovieSearch {
                     boolean matchesSearch = (searchTerm == null || searchTerm.isEmpty() ||
                             movie.getMovieName().toLowerCase().contains(searchTerm.toLowerCase()));
 
-                    boolean matchesCategory = (category == null || movie.getMovieCategory().equalsIgnoreCase(category));
-
                     boolean matchesRating = (minRating <= 0 || movie.getImdbRating() >= minRating);
 
                     System.out.println("Movie: " + movie.getMovieName() + " - Matches search: " + matchesSearch +
-                            ", Matches category: " + matchesCategory + ", Matches rating: " + matchesRating);
-                    return matchesSearch && matchesCategory && matchesRating;
+                            ", Matches rating: " + matchesRating);
+                    return matchesSearch && matchesRating;
                 })
                 .collect(Collectors.toList());
     }
