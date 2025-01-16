@@ -11,10 +11,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class HelloController {
@@ -33,10 +35,26 @@ public class HelloController {
     private Button addMovieButton;
 
     @FXML
+    private ComboBox<String> sortByComboBox;
+
+    @FXML
+    private ListView<Movie> moviesListView;
+
+    @FXML
     public void initialize() {
         loadMovies();
         loadCategories();
+
+        movies.setAll(movieDAO.getAllMovies());
+        movieListView.setItems(movies);
+
+        sortByComboBox.getItems().addAll("Title", "IMDB Rating", "Category");
+
+        sortByComboBox.setOnAction(this::onSortBy);
     }
+
+    private final ObservableList<Movie> movies = FXCollections.observableArrayList();
+    private final MovieDAO movieDAO = new MovieDAO();
 
     private void loadMovies() {
         MovieDAO movieDAO = new MovieDAO();
@@ -83,6 +101,28 @@ public class HelloController {
             stage.showAndWait(); //Wait until the "Add Movie" screen is closed
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onSortBy(ActionEvent event) {
+        String selectedOption = sortByComboBox.getValue();
+        if (selectedOption != null) {
+            sortList(selectedOption);
+        }
+    }
+
+    private void sortList(String criteria) {
+        switch (criteria) {
+            case "Title":
+                FXCollections.sort(movies, Comparator.comparing(Movie::getMovieName));
+                break;
+            case "IMDB Rating":
+                FXCollections.sort(movies, Comparator.comparing(Movie::getImdbRating).reversed());
+                break;
+            case "Category":
+                FXCollections.sort(movies, Comparator.comparing(Movie::getMovieCategory));
+                break;
         }
     }
 }
