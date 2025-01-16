@@ -4,17 +4,19 @@ import java.sql.Date;
 
 public class Movie {
     private int movieId;
-    private String movieName; // Name of the movie.
+    private String movieName;
+    private String movieCategory;// Name of the movie.
     private Float personalRating; // Movie category.
     private float imdbRating; // IMDB rating of the movie.
     private String fileLink; // Path to the movie in the resource folder.
     private java.sql.Date lastViewDate; // Date of the last view.
 
     // Constructor for the Movie class
-    public Movie(int movieId, String name, float imdbRating, float personalRating, String fileLink, Date lastViewDate) {
+    public Movie(int movieId, String name, float imdbRating, String movieCategory, float personalRating, String fileLink, Date lastViewDate) {
         this.movieId = movieId;
         this.movieName = name;
         this.imdbRating = imdbRating;
+        this.movieCategory = movieCategory;
         this.personalRating = personalRating;
         this.fileLink = fileLink;
         this.lastViewDate = lastViewDate;
@@ -31,6 +33,10 @@ public class Movie {
 
     public void setMovieName(String movieName) {
         this.movieName = movieName;
+    }
+
+    public String getMovieCategory() {
+        return movieCategory;
     }
 
     public double getPersonalRating() {
@@ -80,6 +86,7 @@ public class Movie {
     @Override
     public String toString() {
         return "Movie: " + (movieName != null ? movieName : "Unknown") +
+                ", Category: " + (movieCategory != null ? movieCategory : "Unknown") +
                 ", Rating: " + imdbRating +
                 ", Last Viewed: " + (lastViewDate != null ? lastViewDate : "Never");
     }
