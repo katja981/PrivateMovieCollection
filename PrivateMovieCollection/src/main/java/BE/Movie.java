@@ -77,6 +77,7 @@ public class Movie {
         }
     }
 
+    // Override the toString method to return a string representation of the Movie object
     @Override
     public String toString() {
         return "Movie: " + (movieName != null ? movieName : "Unknown") +

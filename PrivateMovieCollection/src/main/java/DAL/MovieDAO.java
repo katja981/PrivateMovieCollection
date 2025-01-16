@@ -11,7 +11,7 @@ public class MovieDAO {
     private DB con = new DB();
 
     public Movie add(Movie movie) throws PlayerException {
-        String sql = "INSERT INTO Movie (movieName, imdbRating, filelink, lastview) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Movie (movieName, movieCategory, imdbRating, personalRating, filelink, lastview) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection c = con.DBConnection();
              PreparedStatement stmt = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -19,6 +19,8 @@ public class MovieDAO {
             stmt.setString(2, movie.getMovieCategory());
             stmt.setDouble(3, movie.getImdbRating());
             stmt.setDouble(4, movie.getPersonalRating());
+            stmt.setString(5, movie.getFileLink());
+            stmt.setDate(6, movie.getLastViewDate());
             stmt.executeUpdate();
 
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {

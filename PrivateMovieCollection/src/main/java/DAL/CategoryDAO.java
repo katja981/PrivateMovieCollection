@@ -42,20 +42,41 @@ public class CategoryDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
-        }
+
         // assign a category to a movie
-        public void assignCategoryToMovie(int movieId, int categoryId) {
+    public void assignCategoryToMovie(int movieId, List<Integer> categoryIds) {
             String sql = "INSERT INTO MovieCategories (movieId, categoryId) VALUES (?, ?)"; // Replace 'MovieCategories' with your actual table name
             try (Connection c = con.DBConnection();
                  PreparedStatement stmt = c.prepareStatement(sql)) {
 
+                for(int categoryId : categoryIds) {
                 stmt.setInt(1, movieId);
                 stmt.setInt(2, categoryId);
-                stmt.executeUpdate();
+                stmt.addBatch();
+                }
+                stmt.executeBatch();
 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+
+    public void removeCategoryFromMovie(int movieId, List<Integer> categoryIds) {
+        String sql = "DELETE FROM MovieCategories WHERE movieId = ? AND categoryId = ?"; // Replace 'MovieCategories' with your actual table name
+        try (Connection c = con.DBConnection();
+             PreparedStatement stmt = c.prepareStatement(sql)) {
+
+            for(int categoryId : categoryIds) {
+                stmt.setInt(1, movieId);
+                stmt.setInt(2, categoryId);
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+}

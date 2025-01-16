@@ -50,6 +50,12 @@ public class HelloController {
     private double selectedRating;
 
     @FXML
+    private ComboBox<String> sortByComboBox;
+
+    @FXML
+    private ListView<Movie> moviesListView;
+
+    @FXML
     public void initialize() {
         movieManager = new MovieManager();
         loadMovies();
@@ -65,7 +71,17 @@ public class HelloController {
         ratingFilter.setMajorTickUnit(1);
         ratingFilter.setMinorTickCount(0);
         ratingFilter.setSnapToTicks(true);
+
+        movies.setAll(movieDAO.getAllMovies());
+        movieListView.setItems(movies);
+
+        sortByComboBox.getItems().addAll("Title", "IMDB Rating", "Category");
+
+        sortByComboBox.setOnAction(this::onSortBy);
     }
+
+    private final ObservableList<Movie> movies = FXCollections.observableArrayList();
+    private final MovieDAO movieDAO = new MovieDAO();
 
     private void loadMovies() {
         MovieDAO movieDAO = new MovieDAO();
@@ -160,6 +176,28 @@ public class HelloController {
             stage.showAndWait(); //Wait until the "Add Movie" screen is closed
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onSortBy(ActionEvent event) {
+        String selectedOption = sortByComboBox.getValue();
+        if (selectedOption != null) {
+            sortList(selectedOption);
+        }
+    }
+
+    private void sortList(String criteria) {
+        switch (criteria) {
+            case "Title":
+                FXCollections.sort(movies, Comparator.comparing(Movie::getMovieName));
+                break;
+            case "IMDB Rating":
+                FXCollections.sort(movies, Comparator.comparing(Movie::getImdbRating).reversed());
+                break;
+            case "Category":
+                FXCollections.sort(movies, Comparator.comparing(Movie::getMovieCategory));
+                break;
         }
     }
 }

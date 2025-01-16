@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.ChooseCategoriesController">
+    <children>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
+                <AnchorPane prefHeight="400.0" prefWidth="600.0">
+                    <children>
+                        <Label layoutX="191.0" layoutY="24.0" text="Choose categories for the Movie:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <CheckBox fx:id="actionCheckBox" layoutX="118.0" layoutY="75.0" mnemonicParsing="false" text="Action" />
+                        <CheckBox fx:id="adventureCheckBox" layoutX="118.0" layoutY="105.0" mnemonicParsing="false" text="Adventure" />
+                        <CheckBox fx:id="animationCheckBox" layoutX="118.0" layoutY="135.0" mnemonicParsing="false" text="Animation" />
+                        <CheckBox fx:id="biographyCheckBox" layoutX="119.0" layoutY="165.0" mnemonicParsing="false" text="Biography" />
+                        <CheckBox fx:id="comedyCheckBox" layoutX="118.0" layoutY="195.0" mnemonicParsing="false" text="Comedy" />
+                        <CheckBox fx:id="crimeCheckBox" layoutX="118.0" layoutY="225.0" mnemonicParsing="false" text="Crime" />
+                        <CheckBox fx:id="documentaryCheckBox" layoutX="118.0" layoutY="255.0" mnemonicParsing="false" text="Documentary" />
+                        <CheckBox fx:id="dramaCheckBox" layoutX="118.0" layoutY="285.0" mnemonicParsing="false" text="Drama" />
+                        <CheckBox fx:id="familyCheckBox" layoutX="118.0" layoutY="315.0" mnemonicParsing="false" text="Family" />
+                        <CheckBox fx:id="fantasyCheckBox" layoutX="250.0" layoutY="75.0" mnemonicParsing="false" text="Fantasy" />
+                        <CheckBox fx:id="historyCheckBox" layoutX="250.0" layoutY="105.0" mnemonicParsing="false" text="History" />
+                        <CheckBox fx:id="horrorCheckBox" layoutX="250.0" layoutY="135.0" mnemonicParsing="false" text="Horror" />
+                        <CheckBox fx:id="musicalCheckBox" layoutX="250.0" layoutY="165.0" mnemonicParsing="false" text="Musical" />
+                        <CheckBox fx:id="mysteryCheckBox" layoutX="250.0" layoutY="195.0" mnemonicParsing="false" text="Mystery" />
+                        <CheckBox fx:id="romanceCheckBox" layoutX="250.0" layoutY="225.0" mnemonicParsing="false" text="Romance" />
+                        <CheckBox fx:id="scifiCheckBox" layoutX="250.0" layoutY="255.0" mnemonicParsing="false" text="Sci-Fi" />
+                        <CheckBox fx:id="sportCheckBox" layoutX="250.0" layoutY="285.0" mnemonicParsing="false" text="Sport" />
+                        <CheckBox fx:id="thrillerCheckBox" layoutX="250.0" layoutY="315.0" mnemonicParsing="false" text="Thriller" />
+                        <CheckBox fx:id="warCheckBox" layoutX="392.0" layoutY="165.0" mnemonicParsing="false" text="War" />
+                        <CheckBox fx:id="westernCheckBox" layoutX="392.0" layoutY="225.0" mnemonicParsing="false" text="Western" />
+                        <Button fx:id="btnSaveCategories" onAction="#onSaveCategoriesClicked" layoutX="315.0" layoutY="347.0" mnemonicParsing="false" text="Save" />
+                        <Button fx:id="btnCancelCategories" onAction="#onCancelCategoriesClicked" layoutX="195.0" layoutY="347.0" mnemonicParsing="false" text="Cancel" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </children>
+</StackPane>
