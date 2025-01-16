@@ -9,18 +9,27 @@ import DAL.MovieDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HelloController {
 
     @FXML
     private TextField searchField;
+
+    @FXML
+    private ChoiceBox<Category> genreFilter;
+
+    @FXML
+    private Slider ratingFilter;
+
+    @FXML
+    private Button applyFiltersButton;
 
     @FXML
     private Button searchButton;
@@ -45,30 +54,29 @@ public class HelloController {
 
         loadMovies();
         loadCategories();
+        populateGenreFilter();
 
-        searchButton.setOnAction(event -> performSearch());
+        applyFiltersButton.setOnAction(event -> applyFiltersAndSearch());
 
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.isEmpty()) {
-                loadMovies();
-            }
-        });
+        searchButton.setOnAction(event -> applyFiltersAndSearch());
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> applyFiltersAndSearch());
+
     }
 
+    private List<Movie> allMovies;
+
     private void loadMovies() {
-
-        List<Movie> movies;
-
         try {
-            movies = movieManager.getAll();
+            allMovies = movieManager.getAll();
         } catch (Exception e) {
         e.printStackTrace();
-        movies = List.of();
+        allMovies = List.of();
         }
 
-        Collections.sort(movies, Comparator.comparing(Movie::getMovieName));
+        Collections.sort(allMovies, Comparator.comparing(Movie::getMovieName));
 
-        movieObservableList = FXCollections.observableList(movies);
+        movieObservableList = FXCollections.observableList(allMovies);
         movieListView.setItems(movieObservableList);
     }
 
@@ -89,28 +97,27 @@ public class HelloController {
         categoryListView.setItems(categoryObservableList);
     }
 
-    private void performSearch() {
-        String searchTerm = searchField.getText();
+    private void populateGenreFilter() {
+        genreFilter.getItems().add(null);
+        genreFilter.getItems().addAll(categoryObservableList);
+        genreFilter.setValue(null);
+    }
 
-        if (searchTerm == null || searchTerm.isBlank()) {
-            loadMovies(); // Reload all movies if the search field is empty
-            return;
+    private void applyFiltersAndSearch() {
+        String searchTerm = searchField.getText().toLowerCase();
+        Category selectedGenre = genreFilter.getValue();
+        double minRating = ratingFilter.getValue();
+
+        List<Movie> filteredMovies = allMovies.stream()
+                .filter(movie -> searchTerm.isEmpty() || movie.getMovieName().toLowerCase().contains(searchTerm))
+                .filter(movie -> selectedGenre == null || movie.getMovieCategory().equals(selectedGenre.getCategoryName()))
+                .filter(movie -> movie.getImdbRating() >= minRating)
+                .collect(Collectors.toList());
+
+        movieListView.setItems(FXCollections.observableList(filteredMovies));
+
+        if (filteredMovies.isEmpty()) {
+            movieListView.setPlaceholder(new Label("No movies found"));
         }
-
-        // Search movies using MovieManager or MovieDAO
-        MovieDAO movieDAO = new MovieDAO();
-        List<Movie> filteredMovies;
-
-        try {
-            filteredMovies = movieDAO.getAllMovies().stream()
-                    .filter(movie -> movie.getMovieName().toLowerCase().contains(searchTerm.toLowerCase()))
-                    .toList(); // Keep the filtered results in scope
-        } catch (Exception e) {
-            e.printStackTrace();
-            filteredMovies = List.of(); // Empty list if an error occurs
-        }
-
-        movieObservableList = FXCollections.observableList(filteredMovies);
-        movieListView.setItems(movieObservableList);
     }
 }

@@ -10,7 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.privatemoviecollection.HelloController">
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Slider?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.privatemoviecollection.HelloController">
    <center>
       <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <items>
@@ -30,7 +32,7 @@
                      <children>
                         <Button mnemonicParsing="false" text="Add category">
                            <HBox.margin>
-                              <Insets left="5.0" right="5.0" />
+                              <Insets bottom="5.0" left="5.0" right="5.0" />
                            </HBox.margin>
                         </Button>
                         <Button mnemonicParsing="false" text="Delete category" />
@@ -39,7 +41,7 @@
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
+               <HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Label text="Movies">
@@ -49,7 +51,7 @@
                         </Label>
                         <TextField fx:id="searchField" promptText="Search...">
                            <HBox.margin>
-                              <Insets left="45.0" />
+                              <Insets left="70.0" />
                            </HBox.margin>
                         </TextField>
                         <Button fx:id="searchButton" mnemonicParsing="false" text="🔍">
@@ -59,6 +61,21 @@
                         </Button>
                      </children>
                   </HBox>
+                  <HBox>
+                     <HBox.margin>
+                             <Insets top="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <Label text="Genre:" />
+                        <ChoiceBox fx:id="genreFilter" prefWidth="120.0" />
+
+                        <Label text="IMDB Rating:" />
+                        <Slider fx:id="ratingFilter" min="0" max="10" value="0" blockIncrement="0.1" showTickMarks="true" showTickLabels="true" />
+
+                        <Button fx:id="applyFiltersButton" text="Apply Filters" />
+                     </children>
+                  </HBox>
+
                   <ListView fx:id="movieListView" prefHeight="403.0" prefWidth="200.0">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" />
@@ -83,7 +100,7 @@
                         </Button>
                      </children>
                   </HBox>
-               </children>
+               </HBox>
             </VBox>
          </items>
       </SplitPane>
