@@ -82,7 +82,7 @@ public class Movie {
         return "Movie: " + (movieName != null ? movieName : "Unknown") +
                 ", Category: " + (movieCategory != null ? movieCategory : "Unknown") +
                 ", Rating: " + imdbRating +
-                ", Last Viewed:" + (lastViewDate != null ? lastViewDate : "Never");
+                ", Last Viewed: " + (lastViewDate != null ? lastViewDate : "Never");
     }
 
     public double getPersonalRating() {
