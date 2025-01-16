@@ -14,7 +14,7 @@
 <?import javafx.scene.control.Slider?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.HelloController">
    <center>
-      <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.205" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <items>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
@@ -51,10 +51,10 @@
                         </Label>
                         <TextField fx:id="searchField" promptText="Search...">
                            <HBox.margin>
-                              <Insets left="70.0" />
+                              <Insets left="110.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="searchButton" mnemonicParsing="false" text="🔍">
+                        <Button fx:id="searchButton" mnemonicParsing="false" text="🔍" onAction="#search">
                            <HBox.margin>
                               <Insets left="4.0" />
                            </HBox.margin>
@@ -66,13 +66,26 @@
                              <Insets top="10.0" />
                      </HBox.margin>
                      <children>
-                        <Label text="Genre:" />
-                        <ChoiceBox fx:id="genreFilter" prefWidth="120.0" />
+                        <Label text="Category:">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="categoryFilter" prefWidth="120.0">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </ChoiceBox>
 
                         <Label text="IMDB Rating:" />
-                        <Slider fx:id="ratingFilter" min="0" max="10" value="0" blockIncrement="0.1" showTickMarks="true" showTickLabels="true" />
+                        <Slider fx:id="ratingFilter" min="0" max="10" value="0" blockIncrement="0.1" showTickMarks="true" showTickLabels="true" >
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Slider>
 
-                        <Button fx:id="applyFiltersButton" text="Apply Filters" />
+
+                        <Button fx:id="applyFiltersButton" text="Apply Filters" onAction="#applyFilters"/>
                      </children>
                   </HBox>
 
