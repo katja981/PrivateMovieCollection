@@ -121,7 +121,7 @@ public class HelloController {
                 FXCollections.sort(movies, Comparator.comparing(Movie::getImdbRating).reversed());
                 break;
             case "Category":
-                FXCollections.sort(movies, Comparator.comparing(Movie::getMovieCategory));
+                FXCollections.sort(movies, Comparator.comparing(Movie::getPersonalRating));
                 break;
         }
     }

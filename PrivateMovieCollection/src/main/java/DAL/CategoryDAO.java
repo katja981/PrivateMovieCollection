@@ -14,15 +14,15 @@ public class CategoryDAO {
         List<Category> categories = new ArrayList<>();
 
         try (Connection c = con.DBConnection();) {
-            String sql = "SELECT [id], [categoryName] FROM Category";
+            String sql = "SELECT [categoryId], [categoryName] FROM Category";
             PreparedStatement stmt = c.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int id = rs.getInt("id");
+                int categoryId = rs.getInt("categoryId");
                 String categoryName = rs.getString("categoryName");
 
-                Category category = new Category(id, categoryName);
+                Category category = new Category(categoryId, categoryName);
                 categories.add(category);
             }
         } catch (SQLException e) {

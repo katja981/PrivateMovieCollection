@@ -1,29 +1,28 @@
 package BE;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 public class Movie {
-    private int id;
+    private int movieId;
     private String movieName; // Name of the movie.
-    private String movieCategory; // Movie category.
+    private Float personalRating; // Movie category.
     private float imdbRating; // IMDB rating of the movie.
     private String fileLink; // Path to the movie in the resource folder.
     private java.sql.Date lastViewDate; // Date of the last view.
 
     // Constructor for the Movie class
-    public Movie(int id, String name, float imdbRating, String movieCategory, String fileLink, java.sql.Date lastViewDate) {
-        this.id = id;
+    public Movie(int movieId, String name, float imdbRating, float personalRating, String fileLink, Date lastViewDate) {
+        this.movieId = movieId;
         this.movieName = name;
         this.imdbRating = imdbRating;
-        this.movieCategory = movieCategory;
+        this.personalRating = personalRating;
         this.fileLink = fileLink;
         this.lastViewDate = lastViewDate;
     }
 
     // Getters and setters for all variables
-    public int getId() {
-        return id;
+    public int getMovieId() {
+        return movieId;
     }
 
     public String getMovieName() {
@@ -34,12 +33,12 @@ public class Movie {
         this.movieName = movieName;
     }
 
-    public String getMovieCategory() {
-        return movieCategory;
+    public double getPersonalRating() {
+        return personalRating;
     }
 
-    public void setMovieCategory(String category) {
-        this.movieCategory = category;
+    public void setPersonalRating(Float personalRating) {
+        this.personalRating = personalRating;
     }
 
     public float getImdbRating() {
@@ -81,16 +80,11 @@ public class Movie {
     @Override
     public String toString() {
         return "Movie: " + (movieName != null ? movieName : "Unknown") +
-                ", Category: " + (movieCategory != null ? movieCategory : "Unknown") +
                 ", Rating: " + imdbRating +
                 ", Last Viewed: " + (lastViewDate != null ? lastViewDate : "Never");
     }
 
-    public double getPersonalRating() {
-        return 0;
-    }
-
-    public void setId(int anInt) {
-        id = anInt;
+    public void setMovieId(int anInt) {
+        movieId = anInt;
     }
 }
