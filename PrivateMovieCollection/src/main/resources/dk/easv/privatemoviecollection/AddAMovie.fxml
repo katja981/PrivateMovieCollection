@@ -29,8 +29,8 @@
                   <Label layoutX="101.0" layoutY="102.0" text="Rating:" />
                   <Label layoutX="101.0" layoutY="171.0" text="Link:" />
                   <TextField fx:id="txtFilePath" layoutX="132.0" layoutY="167.0" />
-                  <Button fx:id="btnChoose" layoutX="288.0" layoutY="167.0" mnemonicParsing="false" text="Choose" />
-                  <Button layoutX="194.0" layoutY="133.0" mnemonicParsing="false" text="Choose" />
+                  <Button onAction="#onChooseFileClicked" fx:id="btnChooseFile" layoutX="288.0" layoutY="167.0" mnemonicParsing="false" text="Choose" />
+                  <Button onAction="#onChooseCategoryButtonClicked" fx:id="btnChooseCategory" layoutX="194.0" layoutY="133.0" mnemonicParsing="false" text="Choose" />
                </children>
             </AnchorPane>
          </children>

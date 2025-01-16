@@ -62,7 +62,7 @@ public class AddMovieController {
     @FXML
     private void onChooseCategoryButtonClicked() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ChooseCategories.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/privatemoviecollection/ChooseCategories.fxml"));
             Parent root = loader.load();
 
             ChooseCategoriesController controller = loader.getController();
