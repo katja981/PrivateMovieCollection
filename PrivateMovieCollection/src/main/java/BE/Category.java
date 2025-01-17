@@ -1,20 +1,20 @@
 package BE;
 
 public class Category {
-    private int id;
+    private int categoryId;
     private String categoryName;
 
-    public Category(int id, String name) {
-        this.id = id;
-        this.categoryName = name;
+    public Category(int categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
     }
 
-    public int getId() {
-        return id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCategoryId(int id) {
+        this.categoryId = id;
     }
 
     public String getCategoryName() {
@@ -27,6 +27,6 @@ public class Category {
 
     @Override
     public String toString() {
-        return (categoryName != null ? categoryName : "Unknown");
+        return categoryName;
     }
 }
