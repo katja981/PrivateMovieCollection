@@ -1,34 +1,23 @@
 package BE;
 
-import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
 
 public class Movie {
     private int movieId;
     private String movieName; // Name of the movie.
-    private Double personalRating; // Movie category.
+    private Float personalRating; // Movie category.
     private float imdbRating; // IMDB rating of the movie.
     private String fileLink; // Path to the movie in the resource folder.
     private java.sql.Date lastViewDate; // Date of the last view.
-    private List<String> categories; // List for categories.
 
     // Constructor for the Movie class
-    public Movie(int movieId, String movieName, float imdbRating, Double personalRating, String fileLink, Date lastViewDate) {
+    public Movie(int movieId, String name, float imdbRating, float personalRating, String fileLink, Date lastViewDate) {
         this.movieId = movieId;
-        this.movieName = movieName;
+        this.movieName = name;
         this.imdbRating = imdbRating;
         this.personalRating = personalRating;
         this.fileLink = fileLink;
         this.lastViewDate = lastViewDate;
-        this.categories = new ArrayList<>();
-    }
-
-    public Movie(int movieId, String movieName, List<String> categories) {
-        this.movieId = movieId;
-        this.movieName = movieName;
-        this.categories = categories;
     }
 
     // Getters and setters for all variables
@@ -40,16 +29,15 @@ public class Movie {
         return movieName;
     }
 
-
     public void setMovieName(String movieName) {
         this.movieName = movieName;
     }
 
-    public Double getPersonalRating() {
+    public double getPersonalRating() {
         return personalRating;
     }
 
-    public void setPersonalRating(Double personalRating) {
+    public void setPersonalRating(Float personalRating) {
         this.personalRating = personalRating;
     }
 
@@ -79,10 +67,6 @@ public class Movie {
         return fileLink;
     }
 
-    public List<String> getCategories() {
-        return categories;
-    }
-
     public void setFileLink(String fileLink) {
         // Check if the file ends with .mp4 or .mpeg4
         if (fileLink != null && (fileLink.endsWith(".mp4") || fileLink.endsWith(".mpeg4"))) {
@@ -102,9 +86,5 @@ public class Movie {
 
     public void setMovieId(int anInt) {
         movieId = anInt;
-    }
-
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
     }
 }

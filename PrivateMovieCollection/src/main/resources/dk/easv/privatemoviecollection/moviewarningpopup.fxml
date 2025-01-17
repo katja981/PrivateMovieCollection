@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="379.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.StartWarningController">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="337.0" prefWidth="625.0" VBox.vgrow="ALWAYS">
+        <Label fx:id="Remember" alignment="CENTER" layoutX="103.0" layoutY="145.0" style="&#10;" text="Remember to remove your movie from your list if..." textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Button onAction="#onContinueClick" fx:id="btnContinue" layoutX="282.0" layoutY="306.0" mnemonicParsing="false" text="Continue" />
+        <Label fx:id="rating" alignment="CENTER" layoutX="75.0" layoutY="186.0" style="&#10;" text="the rating is below 6 or it is more than 2 years since last view" textFill="#9f9f9f" wrapText="false">
+            <font>
+                <Font size="18.0" />
+            </font>
+            <effect>
+                <ColorAdjust />
+            </effect>
+        </Label>
+    </AnchorPane>
+</VBox>

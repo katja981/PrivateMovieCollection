@@ -7,22 +7,18 @@ import DAL.MovieDAO;
 import BLL.MovieManager;
 import BLL.MovieSearch;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HelloController {
 
@@ -42,10 +38,6 @@ public class HelloController {
     private ListView<Category> categoryListView;
     @FXML
     private Button addMovieButton;
-    @FXML
-    private Button showAllMoviesButton;
-    @FXML
-    private Label selectedCategoriesLabel;
 
     private ObservableList<Movie> movieObservableList;
     private ObservableList<Category> categoryObservableList;
@@ -80,23 +72,12 @@ public class HelloController {
         ratingFilter.setMinorTickCount(0);
         ratingFilter.setSnapToTicks(true);
 
-        movies.setAll(movieDAO.getMoviesWithCategories());
+        movies.setAll(movieDAO.getAllMovies());
         movieListView.setItems(movies);
 
         sortByComboBox.getItems().addAll("Title", "IMDB Rating", "Category");
 
         sortByComboBox.setOnAction(this::onSortBy);
-
-        categoryListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-        allMovies = movieDAO.getMoviesWithCategories();
-
-        System.out.println("DEBUG: Movies loaded into allMovies:");
-        for (Movie movie : allMovies) {
-            System.out.println("DEBUG: " + movie.getMovieName() + ", Categories: " + movie.getCategories());
-        }
-
-        movieListView.setItems(FXCollections.observableList(allMovies));
     }
 
     private final ObservableList<Movie> movies = FXCollections.observableArrayList();
@@ -218,57 +199,5 @@ public class HelloController {
                 FXCollections.sort(movies, Comparator.comparing(Movie::getPersonalRating));
                 break;
         }
-    }
-
-    @FXML
-    private void updateMoviesForSelectCategory() {
-        ObservableList<Category> selectedCategories = categoryListView.getSelectionModel().getSelectedItems();
-
-        if (selectedCategories.isEmpty()) {
-            showAllMovies();
-            return;
-        }
-
-        List<String> selectedCategoryNames = selectedCategories.stream()
-                .map(Category::getCategoryName)
-                .collect(Collectors.toList());
-
-        List<Movie> filteredMovies = allMovies.stream()
-                .filter(movie -> {
-                    List<String> movieCategories = movie.getCategories();
-                    if (movieCategories.isEmpty()) return false; // Ignore movies with no categories
-
-                    boolean hasAllSelectedCategories = selectedCategoryNames.stream()
-                            .allMatch(movieCategories::contains);
-
-                    return hasAllSelectedCategories;
-                })
-                .collect(Collectors.toList());
-
-        movieListView.setItems(FXCollections.observableArrayList(filteredMovies));
-
-        selectedCategoriesLabel.setText("Selected categories: " + String.join(", ", selectedCategoryNames));
-    }
-
-    @FXML
-    public void updateMoviesByCategory(MouseEvent event) {
-        updateMoviesForSelectCategory();
-    }
-
-    @FXML
-    private void showAllMovies() {
-        movieListView.setItems(FXCollections.observableArrayList(allMovies));
-        categoryListView.getSelectionModel().clearSelection();
-        selectedCategoriesLabel.setText("Selected Categories: None");
-    }
-
-    @FXML
-    private void onShowAllMoviesButtonClick() {
-        showAllMovies();
-    }
-
-    @FXML
-    private void onFilterMoviesByCategoriesButtonClick() {
-        updateMoviesForSelectCategory();
     }
 }

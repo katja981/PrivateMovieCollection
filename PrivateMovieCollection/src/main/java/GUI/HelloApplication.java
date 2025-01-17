@@ -23,10 +23,10 @@ public class HelloApplication extends Application {
 
         // Create list of movies with their file paths
         ObservableList<String> movies = FXCollections.observableArrayList(
-                "C:/Users/katja/Downloads/COWS_AT_THE_GRASS.mp4",
-                "C:/Users/katja/Downloads/movie2.mp4",
-                "C:/Users/katja/Downloads/movie3.mp4",
-                "C:/Users/katja/Downloads/movie4.mp4"
+                "C:/Users/Pheas/Downloads/OneDrive_2025-01-16/Stock mp4 videos/y2mate.com - People Exercising Running Jogging Workout RoyaltyFree stock videos No copyright running_1080p.mp4",
+                "C:/Users/Pheas/Downloads/OneDrive_2025-01-16/Stock mp4 videos/y2mate.com - FROM EARTH TO SPACE  Free HD VIDEO  NO COPYRIGHT_720p.mp4",
+                "C:/Users/Pheas/Downloads/OneDrive_2025-01-16/Stock mp4 videos/COWS_AT_THE_GRASS.mp4",
+                "C:/Users/Pheas/Downloads/OneDrive_2025-01-16/Stock mp4 videos/tomp3.cc - Coding  Programming HD Stock Video  Free stock footage Free HD Videos  No Copyright  2021_1080p.mp4"
         );
 
         // Lookup the ListView from FXML
