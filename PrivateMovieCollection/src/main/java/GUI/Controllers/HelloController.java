@@ -6,6 +6,7 @@ import DAL.CategoryDAO;
 import DAL.MovieDAO;
 import BLL.MovieManager;
 import BLL.MovieSearch;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,15 +18,21 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.Collections;
+import java.util.stream.Collectors;
 import java.util.Comparator;
 import java.util.List;
 
 public class HelloController {
 
     @FXML
+    private TextField categoryTextField;
+    @FXML
     private TextField searchField;
     @FXML
-    private ChoiceBox<Category> categoryFilter;
+    private ComboBox<Category> categoryFilter;
+
+    private ObservableList<Category> selectedCategories = FXCollections.observableArrayList();
+
     @FXML
     private Slider ratingFilter;
     @FXML
@@ -60,7 +67,10 @@ public class HelloController {
         movieManager = new MovieManager();
         loadMovies();
         loadCategories();
-        applyFiltersButton.setOnAction(event -> applyFilters());
+
+        categoryTextField.setEditable(false);
+        categoryFilter.setPromptText("Select up to 3 categories");
+
         searchButton.setOnAction(event -> search());
 
         ratingFilter.setMin(0);
@@ -78,6 +88,10 @@ public class HelloController {
         sortByComboBox.getItems().addAll("Title", "IMDB Rating", "Category");
 
         sortByComboBox.setOnAction(this::onSortBy);
+
+        categoryFilter.setItems(categoryObservableList);
+
+        categoryFilter.setOnAction(event -> handleCategorySelection());
     }
 
     private final ObservableList<Movie> movies = FXCollections.observableArrayList();
@@ -120,11 +134,25 @@ public class HelloController {
         categoryListView.setItems(categoryObservableList);
     }
 
-    @FXML
-    private void applyFilters() {
-        selectedCategory = categoryFilter.getValue() != null ? categoryFilter.getValue().getCategoryName() : null;
-        selectedRating = ratingFilter.getValue();
-        updateMovieListView();
+    private void handleCategorySelection() {
+        Category selected = categoryFilter.getValue();
+        if (selected != null) {
+            if (selectedCategories.contains(selected)) {
+                selectedCategories.remove(selected);
+                updateCategoryTextField();
+            } else if (selectedCategories.size() < 3) {
+                selectedCategories.add(selected);
+            }
+            updateCategoryTextField();
+        }
+    }
+
+    private void updateCategoryTextField() {
+        // Create a string of selected categories separated by commas
+        String displayText = selectedCategories.stream()
+                .map(Category::getCategoryName)
+                .collect(Collectors.joining(", "));
+        categoryTextField.setText(displayText);
     }
 
     public void search() {
@@ -134,23 +162,27 @@ public class HelloController {
         if (searchText == null || searchText.trim().isEmpty()) {
             // If the search field is empty, show all movies (reset the filter)
             System.out.println("Search field is empty, showing all movies");
-            updateMovieListView(); // This will reset the movie list view to show all movies
+            updateMovieListView(selectedCategories, ratingFilter.getValue()); // This will reset the movie list view to show all movies
         } else {
             // If there's a search term, apply the filter
             System.out.println("Performing search with term: " + searchText);
-            updateMovieListView(); // This will filter movies based on the current search term
+            updateMovieListView(selectedCategories, ratingFilter.getValue()); // This will filter movies based on the current search term
         }
     }
 
-    private void updateMovieListView() {
+    private void updateMovieListView(List<Category> selectedCategories, double minRating) {
         String searchTerm = searchField.getText();
-        String selectedCategory = categoryFilter.getValue() != null ? categoryFilter.getValue().getCategoryName() : null;
-        double minRating = ratingFilter.getValue();
+        // String selectedCategory = categoryFilter.getValue() != null ? categoryFilter.getValue().getCategoryName() : null;
+        //double minRating = ratingFilter.getValue();
 
-        System.out.println("Filtering with searchTerm: " + searchTerm + ", Category: " + selectedCategory + ", Min Rating: " + minRating);
+        List<String> selectedCategoryNames = selectedCategories.stream()
+                        .map(Category::getCategoryName)
+                        .toList();
+
+        System.out.println("Filtering with searchTerm: " + searchTerm + ", Category: " + selectedCategories + ", Min Rating: " + minRating);
 
         MovieSearch movieSearch = new MovieSearch(allMovies);
-        List<Movie> filteredMovies = movieSearch.filterMovies(searchTerm, selectedCategory, minRating);
+        List<Movie> filteredMovies = movieSearch.filterMovies(searchTerm, selectedCategoryNames, minRating);
 
         if (filteredMovies.isEmpty()) {
             movieListView.setItems(FXCollections.observableArrayList());
