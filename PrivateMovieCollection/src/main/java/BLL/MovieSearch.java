@@ -32,5 +32,4 @@ public class MovieSearch {
                 })
                 .collect(Collectors.toList());
     }
-
 }

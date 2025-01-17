@@ -69,7 +69,7 @@
                   </HBox>
                   <HBox>
                      <HBox.margin>
-                             <Insets top="10.0" />
+                        <Insets top="10.0" />
                      </HBox.margin>
                      <children>
                         <Label text="Category:">
