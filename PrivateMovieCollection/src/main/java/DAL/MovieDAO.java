@@ -62,11 +62,12 @@ public class MovieDAO {
                 int movieId = rs.getInt("movieId");
                 String movieName = rs.getString("movieName");
                 float imdbRating = rs.getFloat("imdbRating");
+                String movieCategory = rs.getString("movieCategory");
                 float personalRating = rs.getFloat("personalRating");
                 String fileLink = rs.getString("filelink");
                 Date lastView = rs.getDate("lastview");
 
-                Movie movie = new Movie(movieId, movieName, imdbRating, personalRating, fileLink, lastView);
+                Movie movie = new Movie(movieId, movieName, imdbRating, movieCategory, personalRating, fileLink, lastView);
                 movies.add(movie);
             }
         } catch (SQLException e) {
@@ -88,5 +89,9 @@ public class MovieDAO {
          throw new PlayerException("Error updating movie", e);
         }
         return movie;
+    }
+
+    public boolean deleteMovie(Movie movie) {
+        return false;
     }
 }

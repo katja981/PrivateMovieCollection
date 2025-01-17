@@ -12,19 +12,23 @@ public class MovieSearch {
     }
 
 
-    public List<Movie> filterMovies(String searchTerm, String category, double minRating) {
-        System.out.println("Filtering with searchTerm: " + searchTerm + ", Category: " + category + ", Min Rating: " + minRating);
+    public List<Movie> filterMovies(String searchTerm, List<String> categories, double minRating) {
+        System.out.println("Filtering with searchTerm: " + searchTerm + ", Categories: " + categories + ", Min Rating: " + minRating);
 
         return allMovies.stream()
                 .filter(movie -> {
                     boolean matchesSearch = (searchTerm == null || searchTerm.isEmpty() ||
                             movie.getMovieName().toLowerCase().contains(searchTerm.toLowerCase()));
 
+                    boolean matchesCategory = (categories == null || categories.isEmpty() ||
+                            categories.contains(movie.getMovieCategory()));
+
                     boolean matchesRating = (minRating <= 0 || movie.getImdbRating() >= minRating);
 
                     System.out.println("Movie: " + movie.getMovieName() + " - Matches search: " + matchesSearch +
-                            ", Matches rating: " + matchesRating);
-                    return matchesSearch && matchesRating;
+                            ", Matches category: " + matchesCategory + ", Matches rating: " + matchesRating);
+
+                    return matchesSearch && matchesCategory && matchesRating;
                 })
                 .collect(Collectors.toList());
     }

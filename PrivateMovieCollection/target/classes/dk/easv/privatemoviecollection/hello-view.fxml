@@ -69,7 +69,7 @@
                   </HBox>
                   <HBox>
                      <HBox.margin>
-                             <Insets top="10.0" />
+                        <Insets top="10.0" />
                      </HBox.margin>
                      <children>
                         <Label text="Category:">
@@ -77,11 +77,14 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Label>
-                        <ChoiceBox fx:id="categoryFilter" prefWidth="120.0">
+                        <ComboBox fx:id="categoryFilter" prefWidth="150.0">
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin>
-                        </ChoiceBox>
+                        </ComboBox>
+                        <TextField fx:id="categoryTextField" editable="false" />
+
+
 
                         <Label text="IMDB Rating:" />
                         <Slider fx:id="ratingFilter" min="0" max="10" value="0" blockIncrement="0.1" showTickMarks="true" showTickLabels="true" >
@@ -89,9 +92,6 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Slider>
-
-
-                        <Button fx:id="applyFiltersButton" text="Apply Filters" onAction="#applyFilters"/>
                      </children>
                   </HBox>
 
