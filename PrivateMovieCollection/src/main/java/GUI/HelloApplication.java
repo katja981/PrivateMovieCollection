@@ -13,6 +13,27 @@ import java.io.File;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+
+    // A class to hold movie details
+    static class Movie {
+        String title;
+        double rating;
+        String lastViewedDate;
+        String filePath;
+
+        public Movie(String title, double rating, String lastViewedDate, String filePath) {
+            this.title = title;
+            this.rating = rating;
+            this.lastViewedDate = lastViewedDate;
+            this.filePath = filePath;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("Movie: %s, Rating: %.1f, Last Viewed: %s", title, rating, lastViewedDate);
+        }
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dk/easv/privatemoviecollection/hello-view.fxml"));
@@ -21,16 +42,20 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
 
-        // Create list of movies with their file paths
-        ObservableList<String> movies = FXCollections.observableArrayList(
-                "C:/Users/Pheas/Downloads/OneDrive_2025-01-16/Stock mp4 videos/y2mate.com - People Exercising Running Jogging Workout RoyaltyFree stock videos No copyright running_1080p.mp4",
-                "C:/Users/Pheas/Downloads/OneDrive_2025-01-16/Stock mp4 videos/y2mate.com - FROM EARTH TO SPACE  Free HD VIDEO  NO COPYRIGHT_720p.mp4",
-                "C:/Users/Pheas/Downloads/OneDrive_2025-01-16/Stock mp4 videos/COWS_AT_THE_GRASS.mp4",
-                "C:/Users/Pheas/Downloads/OneDrive_2025-01-16/Stock mp4 videos/tomp3.cc - Coding  Programming HD Stock Video  Free stock footage Free HD Videos  No Copyright  2021_1080p.mp4"
+        // Create a list of movies with their details
+        ObservableList<Movie> movies = FXCollections.observableArrayList(
+                new Movie("The Shawshank Redemption", 9.3, "2024-06-12",
+                        "C:\\Users\\Pheas\\Downloads\\OneDrive_2025-01-16\\Stock mp4 videos\\y2mate.com - People Exercising Running Jogging Workout RoyaltyFree stock videos No copyright running_1080p.mp4"),
+                new Movie("Spirited Away", 8.6, "2024-08-13",
+                        "C:\\Users\\Pheas\\Downloads\\OneDrive_2025-01-16\\Stock mp4 videos\\y2mate.com - FROM EARTH TO SPACE  Free HD VIDEO  NO COPYRIGHT_720p.mp4"),
+                new Movie("Saw", 7.6, "2022-01-12",
+                        "C:\\Users\\Pheas\\Downloads\\OneDrive_2025-01-16\\Stock mp4 videos\\COWS_AT_THE_GRASS.mp4"),
+                new Movie("Home Alone", 7.7, "2024-12-17",
+                        "C:\\Users\\Pheas\\Downloads\\OneDrive_2025-01-16\\Stock mp4 videos\\tomp3.cc - Coding  Programming HD Stock Video  Free stock footage Free HD Videos  No Copyright  2021_1080p.mp4")
         );
 
         // Lookup the ListView from FXML
-        ListView<String> movieListView = (ListView<String>) scene.lookup("#movieListView");
+        ListView<Movie> movieListView = (ListView<Movie>) scene.lookup("#movieListView");
         if (movieListView != null) {
             // Set the list of movies to the ListView
             movieListView.setItems(movies);
@@ -38,10 +63,10 @@ public class HelloApplication extends Application {
             // Set double-click event on the ListView
             movieListView.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
-                    String selectedItem = movieListView.getSelectionModel().getSelectedItem();
-                    if (selectedItem != null) {
-                        System.out.println("Opening movie: " + selectedItem);
-                        openMovie(selectedItem);
+                    Movie selectedMovie = movieListView.getSelectionModel().getSelectedItem();
+                    if (selectedMovie != null) {
+                        System.out.println("Opening movie: " + selectedMovie.filePath);
+                        openMovie(selectedMovie.filePath);
                     }
                 }
             });
@@ -51,9 +76,11 @@ public class HelloApplication extends Application {
     }
 
     /**
-     Method to open a movie file in default media player*/
+     * Method to open a movie file in default media player
+     */
     private void openMovie(String moviePath) {
-        try {// Convert URL-style path to a valid system path
+        try {
+            // Convert URL-style path to a valid system path
             String filePath = moviePath.replace("file:///", "").replace("/", File.separator).replace("%20", " ");
 
             System.out.println("Converted file path: " + filePath);
