@@ -89,4 +89,8 @@ public class MovieDAO {
         }
         return movie;
     }
+
+    public boolean deleteMovie(Movie movie) {
+        return false;
+    }
 }
