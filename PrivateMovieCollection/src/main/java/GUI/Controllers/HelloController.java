@@ -199,4 +199,8 @@ public class HelloController {
                 break;
         }
     }
+
+    public void onDeleteMovieClicked(ActionEvent actionEvent) {
+
+    }
 }
