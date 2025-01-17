@@ -39,7 +39,6 @@ public class HelloController {
     @FXML
     private Button addMovieButton;
 
-    private ObservableList<Movie> movieObservableList;
     private ObservableList<Category> categoryObservableList;
 
     private MovieManager movieManager;
@@ -94,8 +93,8 @@ public class HelloController {
             e.printStackTrace();
             allMovies = List.of();
         }
-        Collections.sort(allMovies, Comparator.comparing(Movie::getMovieName));
-        movieObservableList = FXCollections.observableList(allMovies);
+        allMovies.sort(Comparator.comparing(Movie::getMovieName));
+        ObservableList<Movie> movieObservableList = FXCollections.observableList(allMovies);
         movieListView.setItems(movieObservableList);
     }
 
