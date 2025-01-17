@@ -1,6 +1,7 @@
 package BE;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Movie {
     private int movieId;
@@ -9,10 +10,10 @@ public class Movie {
     private Float personalRating; // Movie category.
     private float imdbRating; // IMDB rating of the movie.
     private String fileLink; // Path to the movie in the resource folder.
-    private java.sql.Date lastViewDate; // Date of the last view.
+    private java.sql.Date lastViewDate; // Date of the last view
 
     // Constructor for the Movie class
-    public Movie(int movieId, String name, float imdbRating, String movieCategory, float personalRating, String fileLink, Date lastViewDate) {
+    public Movie(int movieId, String name, float imdbRating, float personalRating, String fileLink, Date lastViewDate) {
         this.movieId = movieId;
         this.movieName = name;
         this.imdbRating = imdbRating;
@@ -82,6 +83,7 @@ public class Movie {
         }
     }
 
+
     // Override the toString method to return a string representation of the Movie object
     @Override
     public String toString() {
@@ -93,5 +95,12 @@ public class Movie {
 
     public void setMovieId(int anInt) {
         movieId = anInt;
+    }
+
+    public String getCategory() {
+        return List.of().toString();
+    }
+
+    public void setCategory(String text) {
     }
 }

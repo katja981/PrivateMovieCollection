@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
@@ -45,6 +46,8 @@ public class HelloController {
     private ListView<Category> categoryListView;
     @FXML
     private Button addMovieButton;
+    @FXML
+    private Button btnEditMovie;
 
     private ObservableList<Category> categoryObservableList;
 
@@ -205,6 +208,24 @@ public class HelloController {
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL); //Blocks interaction with main screen
             stage.showAndWait(); //Wait until the "Add Movie" screen is closed
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void onEditMovieClicked(ActionEvent event) {
+        try {
+            // Loads the EditMovie FXML file
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("dk/easv/privatemoviecollection/EditMovie.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Creates a new stage for the "Edit Movie" dialog
+            Stage stage = new Stage();
+            stage.setTitle("Edit Movie");
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL); // Blocks interaction with main screen
+            stage.showAndWait(); // Wait until the "Edit Movie" screen is closed
         } catch (Exception e) {
             e.printStackTrace();
         }

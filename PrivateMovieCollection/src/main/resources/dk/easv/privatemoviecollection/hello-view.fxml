@@ -114,7 +114,7 @@
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Edit movie">
+                        <Button onAction="#onEditMovieClicked" fx:id="btnEditMovie" mnemonicParsing="false" text="Edit movie">
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>
